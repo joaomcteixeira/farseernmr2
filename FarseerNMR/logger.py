@@ -32,7 +32,7 @@ comunicate an issue with a run.
 #
 # For full list of author contributors visit:
 #    https://github.com/Farseer-NMR/FarSeer-NMR/wiki/Citing
-#    
+#
 # Contributors to this file:
 #    - João M.C. Teixeira (https://github.com/joaomcteixeira)
 
@@ -93,6 +93,7 @@ log_config = {
 """
 Logging configuration dictionary.
 """
+
 
 def get_log(name):
     """

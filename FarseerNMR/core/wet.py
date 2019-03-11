@@ -37,7 +37,7 @@ straightforwardly.
 #
 # For full list of author contributors visit:
 #    https://github.com/Farseer-NMR/FarSeer-NMR/wiki/Citing
-#    
+#
 # Contributors to this file:
 #    - João M.C. Teixeira (https://github.com/joaomcteixeira)
 import textwrap
@@ -45,6 +45,7 @@ import textwrap
 from FarseerNMR import logger
 
 log = logger.get_log(__name__)
+
 
 def generate(title, msg, wetnum, **kwargs):
     """
@@ -75,7 +76,7 @@ def generate(title, msg, wetnum, **kwargs):
     
     w = WetHandler(
         title,
-        msg, 
+        msg,
         wetnum,
         **kwargs
         )
@@ -197,7 +198,7 @@ class WetHandler():
         """
         The web page for corresponding WET number.
         """
-        return self._format_text(WetHandler.baselink +  self.wetnum)
+        return self._format_text(WetHandler.baselink + self.wetnum)
     
     @property
     def spacer_line(self):
@@ -252,7 +253,7 @@ if __name__ == "__main__":
         Tabbed with triple quoted strings.
         """,
         1,
-        width=80
+        width=50
         )
     
     print(testmsg)
