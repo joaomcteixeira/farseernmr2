@@ -36,9 +36,9 @@ https://github.com/Farseer-NMR/FarSeer-NMR/wiki/WET-List
 #    
 # Contributors to this file:
 #    - João M.C. Teixeira (https://github.com/joaomcteixeira)
+import textwrap
 
-
-def gen_wet(title, msg, wetnum, **kwargs):
+def generate(title, msg, wetnum, **kwargs):
     """
     Returns a formatted and complete WET message.
     
@@ -64,9 +64,17 @@ def gen_wet(title, msg, wetnum, **kwargs):
         The formatted and complete WET message for public display.
     """
     
-    w = WetHandler(title, msg, wetnum, **kwargs)
+    w = WetHandler(
+        str(title),
+        str(msg), 
+        str(wetnum),
+        **kwargs
+        )
     
-    return w.gen_wet()
+    wet_message = w.gen_wet()
+    
+    assert isinstance(wet_message, str), "WET message NOT string"
+    return wet_message
 
 
 class WetHandler():
@@ -128,19 +136,21 @@ class WetHandler():
         # example: '{:*^70}\n'
         self.title_fmt = f"{{:{style}^{width}}}\n"
         # example: '{:*^66}'
-        self.msg_fmt = f"{{:{style}^{width - 4}}}"
-        self.spacer_line_fmt = f"{style}{' ' * (width - 2)}{style}\n"
+        self.msg_fmt = f"{style} {{:^{width - 4}}} {style}"
+        
+        self.spacer_line_fmt = self.msg_fmt.format(" ") + "\n"
         
         self.style = style
         self.width = width
+        self.please_visit = please_visit
         
-        self.title = self.title_fmt.format("f" {title} ")
+        self.title = self.title_fmt.format(f" {title} ")
         
         self.msg = self.message_fmt(self.msg_fmt, msg, width)
         
         self.wetlink = self.message_fmt(
             self.msg_fmt,
-            baselink +  str(wetnum),
+            WetHandler.baselink +  str(wetnum),
             width,
             )
         
@@ -168,10 +178,13 @@ class WetHandler():
         str
             The formatted message with maximum width.
         """
-    
+        
         message_list = list(map(
             lambda x: fmt.format(x),
-            textwrap.wrap(msg, width=width)
+            textwrap.wrap(
+                textwrap.dedent(msg),
+                width=width - 4,
+                )
             ))
     
         return "\n".join(message_list) + "\n"
@@ -183,10 +196,25 @@ class WetHandler():
             + self.title \
             + self.msg \
             + self.spacer_line_fmt \
-            + self.msg_fmt.format(please_visit) \
+            + self.message_fmt(self.msg_fmt, self.please_visit, self.width) \
             + self.wetlink  \
             + self.style * self.width \
             + "\n"
         
         return wet
+
+
+if __name__ == "__main__":
     
+    testmsg = generate(
+        "TESTING",
+        """
+        This is a testing message for Farseer-NMR WET list.
+        It contains several lines.
+        Tabbed with triple quoted strings.
+        """,
+        1,
+        width=80
+        )
+    
+    print(testmsg)
