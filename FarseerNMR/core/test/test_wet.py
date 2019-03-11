@@ -1,3 +1,5 @@
+import pytest
+
 from FarseerNMR.core import wet
 
 def test_wet_1():
@@ -54,3 +56,38 @@ def test_wet_2():
         )
     
     assert a == _
+
+def test_wet_3():
+    """
+    Asserting class attributes.
+    """
+    
+    _ = """
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ TESTING @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    This is a testing message for Farseer-NMR WET list. It contains several   @
+@                  lines. Tabbed with triple quoted strings.                   @
+@                                                                              @
+@                                Please visit:                                 @
+@        https://github.com/Farseer-NMR/FarSeer-NMR/wiki/WET-List#wet1         @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+"""
+    
+    a = wet.WetHandler(
+        "TESTING",
+        """
+        This is a testing message for Farseer-NMR WET list.
+        It contains several lines.
+        Tabbed with triple quoted strings.
+        """,
+        1,
+        width=80,
+        )
+    
+    a.style = "@"
+    
+    assert a.gen_wet() == _
+
+def test_wetnum_type():
+    
+    with pytest.raises(TypeError):
+        a = wet.WetHandler("T", "msg", "dasds")

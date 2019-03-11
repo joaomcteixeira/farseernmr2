@@ -1,12 +1,16 @@
 """
 Generates nice-looking output for WET messages.
 
-WET messages are Warnings, Errors and Troubleshooting
+WET messages are Warnings, Errors and Troubleshooting (WETs)
 messages to guide users on how to correctly proceed when facing
 errors which solution is known by the Farseer-NMR community.
 
 For more information visit:
 https://github.com/Farseer-NMR/FarSeer-NMR/wiki/WET-List
+
+The class :class:`~WetHandler` handles, configures and generates complete
+WET messages. But if you want a simplified used the :func:`~generate`
+straightforwardly.
 """
 # Copyright © 2017-2019 Farseer-NMR
 #
@@ -38,36 +42,41 @@ https://github.com/Farseer-NMR/FarSeer-NMR/wiki/WET-List
 #    - João M.C. Teixeira (https://github.com/joaomcteixeira)
 import textwrap
 
+from FarseerNMR import logger
+
+log = logger.get_log(__name__)
+
 def generate(title, msg, wetnum, **kwargs):
     """
     Returns a formatted and complete WET message.
     
     Parameters
     ----------
-    title : str
+    title : :obj:`str`
             The title of the message. For example: ERROR or WARNING.
         
-    msg : str
+    msg : :obj:`str`
         The WET message.
     
-    wetnum : int or str
+    wetnum : :obj:`int`
         The num of the WET message that relates to the WET list.
         See WET list at:
         https://github.com/Farseer-NMR/FarSeer-NMR/wiki/WET-List
     
     kwargs : kwargs
-        Accepts kwargs to pass to :class:`~WetHanlder`.
+        Parameters to pass to :class:`~WetHandler`.
     
     Returns
     -------
-    srt
-        The formatted and complete WET message for public display.
+    str
+        The formatted and complete WET message for public display,
+        according to :meth:`WetHandler.gen_wet`.
     """
     
     w = WetHandler(
-        str(title),
-        str(msg), 
-        str(wetnum),
+        title,
+        msg, 
+        wetnum,
         **kwargs
         )
     
@@ -80,6 +89,37 @@ def generate(title, msg, wetnum, **kwargs):
 class WetHandler():
     """
     Handles generation of WET messages.
+    
+    Parameters
+    ----------
+    title : :obj:`str`
+        The title of the message. For example: ERROR or WARNING.
+        If request returns formatted title.
+    
+    msg : :obj:`str`
+        The WET message.
+    
+    wetnum : :obj:`int`
+        The num of the WET message that relates to the WET list.
+        See WET list at:
+        https://github.com/Farseer-NMR/FarSeer-NMR/wiki/WET-List
+    
+    width : :obj:`int`, optional
+        The width of the wrapped and formatted message.
+        Defaults to 70.
+    
+    style : :obj:`str`, optional
+        The style char for the WET message.
+        Defaults to "*".
+    
+    please_visit : :obj:`str`
+        The "Please visit" message.
+        Defaults to (obviously): "Please visit".
+    
+    Methods
+    -------
+    gen_wet
+        Returns a formatted WET message according to arguments.
     """
     
     baselink = "https://github.com/Farseer-NMR/FarSeer-NMR/wiki/WET-List#wet"
@@ -97,106 +137,104 @@ class WetHandler():
         """
         Handles generation of wet messages.
         
-        Parameters
-        ----------
-        title : str
-            The title of the message. For example: ERROR or WARNING.
         
-        msg : str
-            The WET message.
-        
-        wetnum : int or str
-            The num of the WET message that relates to the WET list.
-            See WET list at:
-            https://github.com/Farseer-NMR/FarSeer-NMR/wiki/WET-List
-        
-        width : int, optional
-            The width of the wrapped and formatted message.
-            Defaults to 70.
-        
-        style : str, optional
-            The style char for the WET message.
-            Defaults to "*".
-        
-        please_visit: str
-            The "Please visit" message.
-            Defaults to (obviously): "Please visit".
-        
-        Methods
-        -------
-        gen_wet
-            Returns a formatted WET message according to arguments.
-        
-        Static Methods
-        --------------
-        message_fmt
-            Returns a formatted message for WET display.
         """
-        
-        # example: '{:*^70}\n'
-        self.title_fmt = f"{{:{style}^{width}}}\n"
-        # example: '{:*^66}'
-        self.msg_fmt = f"{style} {{:^{width - 4}}} {style}"
-        
-        self.spacer_line_fmt = self.msg_fmt.format(" ") + "\n"
-        
-        self.style = style
+        self.title = title
+        self.msg = msg
+        self.wetnum = wetnum
         self.width = width
+        self.style = style
         self.please_visit = please_visit
-        
-        self.title = self.title_fmt.format(f" {title} ")
-        
-        self.msg = self.message_fmt(self.msg_fmt, msg, width)
-        
-        self.wetlink = self.message_fmt(
-            self.msg_fmt,
-            WetHandler.baselink +  str(wetnum),
-            width,
-            )
         
         return
     
-    @staticmethod
-    def message_fmt(fmt, msg, width):
+    @property
+    def title(self):
         """
-        Generates a formatted message for WET display.
-        
-        Parameters
-        ----------
-        fmt : str
-            The string formatter.
-            For example: '{:*^66}'
-        
-        msg : str
-            The full message for the WET display
-        
-        width : int
-            The width of the formatted message.
-        
-        Returns
-        -------
-        str
-            The formatted message with maximum width.
+        Formatted title.
         """
+        fmt = f"{{:{self.style}^{self.width}}}\n"
+        return fmt.format(f" {self._title} ")
+    
+    @title.setter
+    def title(self, t):
+        self._title = t
+    
+    @property
+    def msg_fmt_str(self):
+        """
+        WET message format string.
+        """
+        return f"{self.style} {{:^{self.width - 4}}} {self.style}"
+    
+    @property
+    def msg_formatted(self):
+        """
+        The formatted WET message.
+        
+        According to :attr:`~msg_fmt_str`.
+        """
+        return self._format_text(self.msg)
+    
+    @property
+    def wetnum(self):
+        """
+        The reference WET number.
+        """
+        return self._wetnum
+    
+    @wetnum.setter
+    def wetnum(self, n):
+        if isinstance(n, int):
+            self._wetnum = str(n)
+        else:
+            _ = "* ERROR * wetnum MUST be integer type"
+            log.debug(_)
+            raise TypeError(_)
+    
+    @property
+    def wetlink(self):
+        """
+        The web page for corresponding WET number.
+        """
+        return self._format_text(WetHandler.baselink +  self.wetnum)
+    
+    @property
+    def spacer_line(self):
+        """
+        A formatted spacer line.
+        """
+        return self.msg_fmt_str.format(" ") + "\n"
+    
+    def _format_text(self, message):
+        """formats a message"""
         
         message_list = list(map(
-            lambda x: fmt.format(x),
+            lambda x: self.msg_fmt_str.format(x),
             textwrap.wrap(
-                textwrap.dedent(msg),
-                width=width - 4,
+                textwrap.dedent(message),
+                width=self.width - 4,
                 )
             ))
     
         return "\n".join(message_list) + "\n"
     
     def gen_wet(self):
+        """
+        Generates the complete WET message public formatted.
+        
+        Returns
+        -------
+        str
+            The full WET message.
+        """
         
         wet = \
             "\n" \
             + self.title \
-            + self.msg \
-            + self.spacer_line_fmt \
-            + self.message_fmt(self.msg_fmt, self.please_visit, self.width) \
+            + self.msg_formatted \
+            + self.spacer_line \
+            + self._format_text(self.please_visit) \
             + self.wetlink  \
             + self.style * self.width \
             + "\n"
