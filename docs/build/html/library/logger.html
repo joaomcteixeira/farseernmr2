@@ -1,0 +1,138 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Logger &#8212; Farseer-NMR 2.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="WET Messages" href="wet.html" />
+    <link rel="prev" title="Farseer-NMR Library" href="../farseernmr_library.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-FarseerNMR.logger">
+<span id="logger"></span><h1>Logger<a class="headerlink" href="#module-FarseerNMR.logger" title="Permalink to this headline">¶</a></h1>
+<p>Handles Farseer-NMR logging system.</p>
+<p>By default, generates a farseernmr.log and a farseernmr.debug files
+with each run. <em>farseernmr.log</em> contains scientific information
+regarding the run, and <em>farseernmr.debug</em> contains information
+for developers. Also, you can send us <em>.debug</em> file if you wan to
+comunicate an issue with a run.</p>
+<dl class="function">
+<dt id="FarseerNMR.logger.get_log">
+<code class="descclassname">FarseerNMR.logger.</code><code class="descname">get_log</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/FarseerNMR/logger.html#get_log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#FarseerNMR.logger.get_log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns logger according to <a class="reference internal" href="#FarseerNMR.logger.log_config" title="FarseerNMR.logger.log_config"><code class="xref py py-const docutils literal notranslate"><span class="pre">log_config</span></code></a>.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="FarseerNMR.logger.log_config">
+<code class="descclassname">FarseerNMR.logger.</code><code class="descname">log_config</code><em class="property"> = {'disable_existing_loggers': False, 'formatters': {'debug_format': {'format': '%(levelname)s - %(filename)s:%(name)s:%(funcName)s:%(lineno)d - %(message)s'}, 'info_format': {'format': '%(message)s'}}, 'handlers': {'console': {'class': 'logging.StreamHandler', 'formatter': 'info_format', 'level': 'INFO', 'stream': 'ext://sys.stdout'}, 'debug_file_handler': {'backupCount': 20, 'class': 'logging.handlers.RotatingFileHandler', 'encoding': 'utf8', 'filename': 'farseernmr.debug', 'formatter': 'debug_format', 'level': 'DEBUG', 'maxBytes': 10485760}, 'info_file_handler': {'backupCount': 20, 'class': 'logging.handlers.RotatingFileHandler', 'encoding': 'utf8', 'filename': 'farseernmr.log', 'formatter': 'debug_format', 'level': 'INFO', 'maxBytes': 10485760}}, 'loggers': {}, 'root': {'handlers': ['console', 'info_file_handler', 'debug_file_handler'], 'level': 'DEBUG'}, 'version': 1}</em><a class="headerlink" href="#FarseerNMR.logger.log_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logging configuration dictionary.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Farseer-NMR</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../farseernmr_library.html">Farseer-NMR Library</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Logger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wet.html">WET Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calc.html">Calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html">Farseer-NMR plotting library</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../farseernmr_library.html">Farseer-NMR Library</a><ul>
+      <li>Previous: <a href="../farseernmr_library.html" title="previous chapter">Farseer-NMR Library</a></li>
+      <li>Next: <a href="wet.html" title="next chapter">WET Messages</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Joao M. C. Teixeira.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/library/logger.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

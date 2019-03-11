@@ -1,0 +1,235 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Compacted BarPlot &#8212; Farseer-NMR 2.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-FarseerNMR.plot.barplotcompacted">
+<span id="compacted-barplot"></span><span id="barplotcompacted"></span><h1>Compacted BarPlot<a class="headerlink" href="#module-FarseerNMR.plot.barplotcompacted" title="Permalink to this headline">¶</a></h1>
+<p>The Compacted Bar Plot template draws square-shaped subplots
+designed to fit half page with individually.</p>
+<p>Each subplot represents an datapoint in the experimental titration,
+i.e., a peaklist.</p>
+<p>The value of the parameter is represented for each residue in the
+form of bars - there is a bar for each residue.</p>
+<p>Subplots are stacked sequentially in grid from left to right and from
+top to bottom. This arrangement can be used directly as a supplementary
+figure in your publications.</p>
+<p>Style configurations can be tweaked using the specific parameters
+in .plot() function.</p>
+<p>The configuration dictionary provided with this module can be used
+to tweak the plotting style and details - see <a class="reference internal" href="#FarseerNMR.plot.barplotcompacted.get_config" title="FarseerNMR.plot.barplotcompacted.get_config"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_config()</span></code></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The implementation of plot style <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> as a dictionary apart from
+the <a class="reference internal" href="#FarseerNMR.plot.barplotcompacted.plot" title="FarseerNMR.plot.barplotcompacted.plot"><code class="xref py py-func docutils literal notranslate"><span class="pre">plot()</span></code></a> parameters is part of the conscious design of the
+Farseer-NMR plotting modules.</p>
+</div>
+<dl class="function">
+<dt id="FarseerNMR.plot.barplotcompacted.get_config">
+<code class="descclassname">FarseerNMR.plot.barplotcompacted.</code><code class="descname">get_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/FarseerNMR/plot/barplotcompacted.html#get_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#FarseerNMR.plot.barplotcompacted.get_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the module’s default config dictionary.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="FarseerNMR.plot.barplotcompacted.plot">
+<code class="descclassname">FarseerNMR.plot.barplotcompacted.</code><code class="descname">plot</code><span class="sig-paren">(</span><em>values</em>, <em>labels</em>, <em>header=''</em>, <em>suptitles=None</em>, <em>letter_code=None</em>, <em>peak_status=None</em>, <em>details=None</em>, <em>tag_position=None</em>, <em>theo_pre=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/FarseerNMR/plot/barplotcompacted.html#plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#FarseerNMR.plot.barplotcompacted.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots according to the Compacted Bar Plot Template.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>values</strong> <span class="classifier-delimiter">:</span> <span class="classifier">np.ndarray shape (y,x), dtype=float</span></dt>
+<dd><p class="first last">Where X (axis=1) is the data to plot for each bar (residue),
+Y (axis=0) is the evolution of that data along the titration
+series.</p>
+</dd>
+<dt><strong>labels</strong> <span class="classifier-delimiter">:</span> <span class="classifier">np.ndarray shape (x,), dtype=str</span></dt>
+<dd><p class="first last">Bar labels which are drawn as xtick labels.</p>
+</dd>
+<dt><strong>header</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str, optional</span></dt>
+<dd><p class="first last">Multi-line string with additional human-readable notes.
+Header will be written in the output figure file in a dedicated
+blank space.</p>
+</dd>
+<dt><strong>suptitles</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list of str, optional</span></dt>
+<dd><p class="first last">Titles of each subplot, length must be equal to values.shape[0].
+Defaults to a range of values.shape[0], [“0”, “1”, “2”, …</p>
+</dd>
+<dt><strong>letter_code</strong> <span class="classifier-delimiter">:</span> <span class="classifier">np.ndarray shape (x,), dtype=str, optional</span></dt>
+<dd><p class="first last">1-letter code of the protein sequence, should have length equal
+to &lt;labels&gt;.
+Defaults to None.</p>
+</dd>
+<dt><strong>peak_status</strong> <span class="classifier-delimiter">:</span> <span class="classifier">np.ndarray shape (y,x), dtype=str, optional</span></dt>
+<dd><p class="first last">Peak status information according to core.utils.peak_status
+dictionary.
+Defaults to None.</p>
+</dd>
+<dt><strong>details</strong> <span class="classifier-delimiter">:</span> <span class="classifier">np.ndarray shape (y,x), dtype=str, optional</span></dt>
+<dd><p class="first last">Peaklist Details column information.
+Defaults to None.</p>
+</dd>
+<dt><strong>theo_pre</strong> <span class="classifier-delimiter">:</span> <span class="classifier">np.ndarray shape (y,x), dtype=str, optional</span></dt>
+<dd><p class="first last">Information on theoretical PRE data.
+Defaults to None.</p>
+</dd>
+<dt><strong>tag_position</strong> <span class="classifier-delimiter">:</span> <span class="classifier">np.ndarray shape (y,x), dtype=str, optional</span></dt>
+<dd><p class="first last">Null values where tag not present, “*” character denotes
+the position of the of the paramagnetic tag.
+If None provided, Tag tick is not drawn.
+Defaults to None.</p>
+</dd>
+<dt><strong>**kwargs :</strong></dt>
+<dd><p class="first">Plot details (colors, shapes, fonts, …) can be highly
+configured through additional named parameters.</p>
+<p>The available options for named parameters are stored in a
+default configuration dictionary that can be obtained through
+the module’s <a class="reference internal" href="#FarseerNMR.plot.barplotcompacted.get_config" title="FarseerNMR.plot.barplotcompacted.get_config"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_config()</span></code></a> (see also <code class="xref py py-func docutils literal notranslate"><span class="pre">prin_config()</span></code>).</p>
+<p>The configuration dictionary can be modified and passed
+enterilly to the
+function call, do not forget the unpacking operator (<code class="docutils literal notranslate"><span class="pre">**</span></code>),
+or, instead if individual arguments are passed, those will
+update the default configuration.</p>
+<p>If no <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> are provided, the default configuration
+dictionary is used.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_config_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;figure_path&quot;</span><span class="p">:</span> <span class="s2">&quot;super_plot.pdf&quot;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="p">(</span><span class="n">some_values</span><span class="p">,</span> <span class="n">some_labels</span><span class="p">,</span> <span class="o">**</span><span class="n">my_config_dict</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="p">(</span><span class="n">some_values</span><span class="p">,</span> <span class="n">some_labels</span><span class="p">,</span> <span class="n">figure_path</span><span class="o">=</span><span class="s2">&quot;super_plot.pdf&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="FarseerNMR.plot.barplotcompacted.print_config">
+<code class="descclassname">FarseerNMR.plot.barplotcompacted.</code><code class="descname">print_config</code><span class="sig-paren">(</span><em>indent=4</em>, <em>sort_keys=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/FarseerNMR/plot/barplotcompacted.html#print_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#FarseerNMR.plot.barplotcompacted.print_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Nicely prints module’s default config.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>indent</strong> <span class="classifier-delimiter">:</span> <span class="classifier">int, optional</span></dt>
+<dd><p class="first last">Indentation for sublevels. Defaults to 4.</p>
+</dd>
+<dt><strong>sort_keys</strong> <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
+<dd><p class="first last">Sorts config keys. Default to True.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Farseer-NMR</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../farseernmr_library.html">Farseer-NMR Library</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Joao M. C. Teixeira.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/library/barplotcompacted.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,302 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>FarseerNMR.plot.base.barplotbase &#8212; Farseer-NMR 2.0.0 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for FarseerNMR.plot.base.barplotbase</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains functions that serve Bar Plot templates.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># Copyright © 2017-2019 Farseer-NMR</span>
+<span class="c1">#</span>
+<span class="c1"># @Original Article: http://bit.ly/farseerjbnmr</span>
+<span class="c1"># @ResearchGate https://goo.gl/z8dPJU</span>
+<span class="c1"># @Twitter https://twitter.com/farseer_nmr</span>
+<span class="c1"># @GitHub: http://bit.ly/farseer-nmr</span>
+<span class="c1"># @Mailist: http://bit.ly/fs_maillist</span>
+<span class="c1">#</span>
+<span class="c1"># This file is part of the Farseer-NMR project.</span>
+<span class="c1">#</span>
+<span class="c1"># Farseer-NMR is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># Farseer-NMR is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with Farseer-NMR. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+<span class="c1"># For full list of author contributors visit:</span>
+<span class="c1">#    https://github.com/Farseer-NMR/FarSeer-NMR/wiki/Citing</span>
+<span class="c1">#</span>
+<span class="c1"># Contributors to this file:</span>
+<span class="c1">#    - João M.C. Teixeira (https://github.com/joaomcteixeira)</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="kn">from</span> <span class="nn">FarseerNMR</span> <span class="k">import</span> <span class="n">logger</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">get_log</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="plot_threshold"><a class="viewcode-back" href="../../../../library/plottingbasemodules.html#FarseerNMR.plot.base.barplotbase.plot_threshold">[docs]</a><span class="k">def</span> <span class="nf">plot_threshold</span><span class="p">(</span>
+        <span class="n">ax</span><span class="p">,</span>
+        <span class="n">values</span><span class="p">,</span>
+        <span class="n">std</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+        <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span>
+        <span class="n">threshold_color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+        <span class="n">threshold_linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">threshold_alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+        <span class="n">threshold_zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plots threshold line that identifies relevant perturnations.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ax : :obj:`matplotlib.axes.Axes`</span>
+<span class="sd">    </span>
+<span class="sd">    values : np.ndarray</span>
+<span class="sd">        Values to evaluate.</span>
+<span class="sd">        </span>
+<span class="sd">    std : int, optional</span>
+<span class="sd">        Standard deviation multiplier. Defaults to 5.</span>
+<span class="sd">    </span>
+<span class="sd">    orientation : [&#39;horizontal&#39;, &#39;vertical&#39;], optional</span>
+<span class="sd">        Wheter plotting in a vertical or horizontal plot.</span>
+<span class="sd">        Defaults to &#39;horizontal&#39;</span>
+<span class="sd">    </span>
+<span class="sd">    threshold_color : str, optional</span>
+<span class="sd">        Line color. Defaults to &quot;red&quot;.</span>
+<span class="sd">    </span>
+<span class="sd">    threshold_linewidth : float, optional</span>
+<span class="sd">        Line width. Defaults to &quot;0.5&quot;.</span>
+<span class="sd">    </span>
+<span class="sd">    threshold_alpha : float [0-1], optional</span>
+<span class="sd">        Line&#39;s transparency. Defaults to 0.8.</span>
+<span class="sd">    </span>
+<span class="sd">    threshold_zorder : int</span>
+<span class="sd">        The matplotlib zorder for the plot.</span>
+<span class="sd">        Defaults to 10, plots on top of everything.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">threshold</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="n">threshold_std_of_population</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Threshold defined: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">threshold</span><span class="p">))</span>
+    
+    <span class="n">line_details</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">threshold_color</span><span class="p">,</span>
+        <span class="s2">&quot;linewidth&quot;</span><span class="p">:</span> <span class="n">threshold_linewidth</span><span class="p">,</span>
+        <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="n">threshold_alpha</span><span class="p">,</span>
+        <span class="s2">&quot;zorder&quot;</span><span class="p">:</span> <span class="n">threshold_zorder</span><span class="p">,</span>
+        <span class="p">}</span>
+        
+    <span class="k">if</span> <span class="n">orientation</span> <span class="o">==</span> <span class="s1">&#39;horizontal&#39;</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">line_details</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="c1"># in case there are negative numbers, plots the threshold,</span>
+        <span class="c1"># if there are not negative numbers, this line is never displayed</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span>
+            <span class="n">y</span><span class="o">=-</span><span class="n">threshold</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">line_details</span><span class="p">,</span>
+            <span class="p">)</span>
+    
+    <span class="k">elif</span> <span class="n">orientation</span> <span class="o">==</span> <span class="s1">&#39;vertical&#39;</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">line_details</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="c1"># in case there are negative numbers, plots the threshold,</span>
+        <span class="c1"># if there are not negative numbers, this line is never displayed</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=-</span><span class="n">threshold</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">line_details</span><span class="p">,</span>
+            <span class="p">)</span>
+    
+    <span class="k">return</span></div>
+
+
+<span class="k">def</span> <span class="nf">compacted_bar_xticks</span><span class="p">(</span><span class="n">num_of_bars</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">labels</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="n">labels_are_int</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">labels_are_int</span> <span class="o">=</span> <span class="kc">True</span>
+    
+    <span class="k">if</span> <span class="n">num_of_bars</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="n">xticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_of_bars</span><span class="p">)</span>
+    
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">number_of_ticks</span> <span class="o">=</span> <span class="n">num_of_bars</span>
+        <span class="n">mod_</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="n">sanity_counter</span> <span class="o">=</span> <span class="mi">0</span>
+    
+        <span class="k">if</span> <span class="n">labels_are_int</span><span class="p">:</span>
+            <span class="n">tmp_labels</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            
+            <span class="k">while</span> <span class="n">number_of_ticks</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="ow">and</span> <span class="n">sanity_counter</span> <span class="o">&lt;</span> <span class="mi">100000</span><span class="p">:</span>
+                
+                <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">tmp_labels</span> <span class="o">%</span> <span class="n">mod_</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                
+                <span class="n">xticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_of_bars</span><span class="p">)[</span><span class="n">mask</span><span class="p">]</span>
+                <span class="n">xticks_labels</span> <span class="o">=</span> <span class="n">tmp_labels</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+                <span class="n">number_of_ticks</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">xticks</span><span class="p">)</span>
+    
+                <span class="n">mod_</span> <span class="o">*=</span> <span class="mi">10</span>
+                <span class="n">sanity_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+        <span class="k">elif</span> <span class="ow">not</span><span class="p">(</span><span class="n">labels_are_int</span><span class="p">):</span>
+            
+            <span class="n">tmp_xticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_of_bars</span><span class="p">)</span>
+    
+            <span class="k">while</span> <span class="n">number_of_ticks</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="ow">and</span> <span class="n">sanity_counter</span> <span class="o">&lt;</span> <span class="mi">100000</span><span class="p">:</span>
+                
+                <span class="n">xticks</span> <span class="o">=</span> <span class="n">tmp_xticks</span><span class="p">[</span><span class="n">tmp_xticks</span> <span class="o">%</span> <span class="n">mod_</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+                <span class="n">xticks_labels</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">xticks</span><span class="p">]</span>
+                <span class="n">number_of_ticks</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">xticks</span><span class="p">)</span>
+    
+                <span class="n">mod_</span> <span class="o">*=</span> <span class="mi">10</span>
+                <span class="n">sanity_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;sanity_counter: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sanity_counter</span><span class="p">))</span>
+    
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Setting xticks: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">([</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">xticks</span><span class="p">]))</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;xticklabels: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">xticks_labels</span><span class="p">))</span>
+    
+    <span class="k">return</span> <span class="n">xticks</span><span class="p">,</span> <span class="n">xticks_labels</span>
+
+
+<span class="k">def</span> <span class="nf">_extended_bar_xticks</span><span class="p">(</span><span class="n">num_of_bars</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Algorythm to calculate the distribution of xticks</span>
+<span class="sd">    in extended bar plots.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    num_of_bars : int</span>
+<span class="sd">        The number of bars in the plot.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        int</span>
+<span class="sd">            The spacer slicer to be used in numpy.ndarray objtes</span>
+<span class="sd">            such as xticks, xticks_labels, and others.</span>
+<span class="sd">            [::mod_]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># Define tick spacing</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">101</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="n">num_of_bars</span><span class="p">:</span>
+            <span class="n">mod_</span> <span class="o">=</span> <span class="n">j</span> <span class="o">//</span> <span class="mi">100</span>
+            <span class="k">break</span>
+    
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Tick spacing set to: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mod_</span><span class="p">))</span>
+    
+    <span class="k">return</span> <span class="n">mod_</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">Farseer-NMR</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../farseernmr_library.html">Farseer-NMR Library</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Joao M. C. Teixeira.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

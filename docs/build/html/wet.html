@@ -1,0 +1,285 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>WET Messages &#8212; Farseer-NMR 2.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-FarseerNMR.core.wet">
+<span id="wet-messages"></span><h1>WET Messages<a class="headerlink" href="#module-FarseerNMR.core.wet" title="Permalink to this headline">¶</a></h1>
+<p>Generates nice-looking output for WET messages.</p>
+<p>WET messages are Warnings, Errors and Troubleshooting (WETs)
+messages to guide users on how to correctly proceed when facing
+errors which solution is known by the Farseer-NMR community.</p>
+<p>For more information visit:
+<a class="reference external" href="https://github.com/Farseer-NMR/FarSeer-NMR/wiki/WET-List">https://github.com/Farseer-NMR/FarSeer-NMR/wiki/WET-List</a></p>
+<p>The class <a class="reference internal" href="#FarseerNMR.core.wet.WetHandler" title="FarseerNMR.core.wet.WetHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">WetHandler</span></code></a> handles, configures and generates complete
+WET messages. But if you want a simplified used the <a class="reference internal" href="#FarseerNMR.core.wet.generate" title="FarseerNMR.core.wet.generate"><code class="xref py py-func docutils literal notranslate"><span class="pre">generate()</span></code></a>
+straightforwardly.</p>
+<dl class="class">
+<dt id="FarseerNMR.core.wet.WetHandler">
+<em class="property">class </em><code class="descclassname">FarseerNMR.core.wet.</code><code class="descname">WetHandler</code><span class="sig-paren">(</span><em>title</em>, <em>msg</em>, <em>wetnum</em>, <em>*</em>, <em>width=70</em>, <em>style='*'</em>, <em>please_visit='Please visit:'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/FarseerNMR/core/wet.html#WetHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#FarseerNMR.core.wet.WetHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles generation of WET messages.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>title</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a></span></dt>
+<dd><p class="first last">The title of the message. For example: ERROR or WARNING.
+If request returns formatted title.</p>
+</dd>
+<dt><strong>msg</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a></span></dt>
+<dd><p class="first last">The WET message.</p>
+</dd>
+<dt><strong>wetnum</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a></span></dt>
+<dd><p class="first last">The num of the WET message that relates to the WET list.
+See WET list at:
+<a class="reference external" href="https://github.com/Farseer-NMR/FarSeer-NMR/wiki/WET-List">https://github.com/Farseer-NMR/FarSeer-NMR/wiki/WET-List</a></p>
+</dd>
+<dt><strong>width</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>, optional</span></dt>
+<dd><p class="first last">The width of the wrapped and formatted message.
+Defaults to 70.</p>
+</dd>
+<dt><strong>style</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, optional</span></dt>
+<dd><p class="first last">The style char for the WET message.
+Defaults to “*”.</p>
+</dd>
+<dt><strong>please_visit</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a></span></dt>
+<dd><p class="first last">The “Please visit” message.
+Defaults to (obviously): “Please visit”.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Attributes:</th><td class="field-body"><dl class="first last docutils">
+<dt><a class="reference internal" href="#FarseerNMR.core.wet.WetHandler.msg_fmt_str" title="FarseerNMR.core.wet.WetHandler.msg_fmt_str"><code class="xref py py-obj docutils literal notranslate"><span class="pre">msg_fmt_str</span></code></a></dt>
+<dd><p class="first last">WET message format string.</p>
+</dd>
+<dt><a class="reference internal" href="#FarseerNMR.core.wet.WetHandler.msg_formatted" title="FarseerNMR.core.wet.WetHandler.msg_formatted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">msg_formatted</span></code></a></dt>
+<dd><p class="first last">The formatted WET message.</p>
+</dd>
+<dt><a class="reference internal" href="#FarseerNMR.core.wet.WetHandler.spacer_line" title="FarseerNMR.core.wet.WetHandler.spacer_line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spacer_line</span></code></a></dt>
+<dd><p class="first last">A formatted spacer line.</p>
+</dd>
+<dt><a class="reference internal" href="#FarseerNMR.core.wet.WetHandler.title" title="FarseerNMR.core.wet.WetHandler.title"><code class="xref py py-obj docutils literal notranslate"><span class="pre">title</span></code></a></dt>
+<dd><p class="first last">Formatted title.</p>
+</dd>
+<dt><a class="reference internal" href="#FarseerNMR.core.wet.WetHandler.wetlink" title="FarseerNMR.core.wet.WetHandler.wetlink"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wetlink</span></code></a></dt>
+<dd><p class="first last">The web page for corresponding WET number.</p>
+</dd>
+<dt><a class="reference internal" href="#FarseerNMR.core.wet.WetHandler.wetnum" title="FarseerNMR.core.wet.WetHandler.wetnum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wetnum</span></code></a></dt>
+<dd><p class="first last">The reference WET number.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#FarseerNMR.core.wet.WetHandler.gen_wet" title="FarseerNMR.core.wet.WetHandler.gen_wet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_wet</span></code></a>()</td>
+<td>Generates the complete WET message public formatted.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="FarseerNMR.core.wet.WetHandler.gen_wet">
+<code class="descname">gen_wet</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/FarseerNMR/core/wet.html#WetHandler.gen_wet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#FarseerNMR.core.wet.WetHandler.gen_wet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the complete WET message public formatted.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>str</strong></dt>
+<dd><p class="first last">The full WET message.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="FarseerNMR.core.wet.WetHandler.msg_fmt_str">
+<code class="descname">msg_fmt_str</code><a class="headerlink" href="#FarseerNMR.core.wet.WetHandler.msg_fmt_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>WET message format string.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="FarseerNMR.core.wet.WetHandler.msg_formatted">
+<code class="descname">msg_formatted</code><a class="headerlink" href="#FarseerNMR.core.wet.WetHandler.msg_formatted" title="Permalink to this definition">¶</a></dt>
+<dd><p>The formatted WET message.</p>
+<p>According to <a class="reference internal" href="#FarseerNMR.core.wet.WetHandler.msg_fmt_str" title="FarseerNMR.core.wet.WetHandler.msg_fmt_str"><code class="xref py py-attr docutils literal notranslate"><span class="pre">msg_fmt_str</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="FarseerNMR.core.wet.WetHandler.spacer_line">
+<code class="descname">spacer_line</code><a class="headerlink" href="#FarseerNMR.core.wet.WetHandler.spacer_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>A formatted spacer line.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="FarseerNMR.core.wet.WetHandler.title">
+<code class="descname">title</code><a class="headerlink" href="#FarseerNMR.core.wet.WetHandler.title" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formatted title.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="FarseerNMR.core.wet.WetHandler.wetlink">
+<code class="descname">wetlink</code><a class="headerlink" href="#FarseerNMR.core.wet.WetHandler.wetlink" title="Permalink to this definition">¶</a></dt>
+<dd><p>The web page for corresponding WET number.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="FarseerNMR.core.wet.WetHandler.wetnum">
+<code class="descname">wetnum</code><a class="headerlink" href="#FarseerNMR.core.wet.WetHandler.wetnum" title="Permalink to this definition">¶</a></dt>
+<dd><p>The reference WET number.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="FarseerNMR.core.wet.generate">
+<code class="descclassname">FarseerNMR.core.wet.</code><code class="descname">generate</code><span class="sig-paren">(</span><em>title</em>, <em>msg</em>, <em>wetnum</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/FarseerNMR/core/wet.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#FarseerNMR.core.wet.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a formatted and complete WET message.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>title</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a></span></dt>
+<dd><p class="first last">The title of the message. For example: ERROR or WARNING.</p>
+</dd>
+<dt><strong>msg</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a></span></dt>
+<dd><p class="first last">The WET message.</p>
+</dd>
+<dt><strong>wetnum</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a></span></dt>
+<dd><p class="first last">The num of the WET message that relates to the WET list.
+See WET list at:
+<a class="reference external" href="https://github.com/Farseer-NMR/FarSeer-NMR/wiki/WET-List">https://github.com/Farseer-NMR/FarSeer-NMR/wiki/WET-List</a></p>
+</dd>
+<dt><strong>kwargs</strong> <span class="classifier-delimiter">:</span> <span class="classifier">kwargs</span></dt>
+<dd><p class="first last">Parameters to pass to <a class="reference internal" href="#FarseerNMR.core.wet.WetHandler" title="FarseerNMR.core.wet.WetHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">WetHandler</span></code></a>.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>str</strong></dt>
+<dd><p class="first last">The formatted and complete WET message for public display,
+according to <a class="reference internal" href="#FarseerNMR.core.wet.WetHandler.gen_wet" title="FarseerNMR.core.wet.WetHandler.gen_wet"><code class="xref py py-meth docutils literal notranslate"><span class="pre">WetHandler.gen_wet()</span></code></a>.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Farseer-NMR</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="farseernmr_library.html">Farseer-NMR Library</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Joao M. C. Teixeira.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/wet.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

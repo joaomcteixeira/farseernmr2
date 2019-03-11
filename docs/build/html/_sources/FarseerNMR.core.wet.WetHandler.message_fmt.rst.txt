@@ -1,0 +1,1 @@
+.. autmodule:: FarseerNMR.core.wet.WetHandler.message_fmt
