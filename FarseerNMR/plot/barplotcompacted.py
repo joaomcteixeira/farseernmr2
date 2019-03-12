@@ -30,7 +30,6 @@ import json
 from matplotlib import pyplot as plt
 
 from FarseerNMR import logger
-from FarseerNMR.core import validate
 from FarseerNMR.plot.base import (
     plottingbase,
     experimentplotbase,

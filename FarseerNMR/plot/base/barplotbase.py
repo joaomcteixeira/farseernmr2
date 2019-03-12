@@ -31,8 +31,6 @@ This module contains functions that serve Bar Plot templates.
 #    - João M.C. Teixeira (https://github.com/joaomcteixeira)
 import numpy as np
 
-from matplotlib import pyplot as plt
-
 from FarseerNMR import logger
 from FarseerNMR.calc import calc
 

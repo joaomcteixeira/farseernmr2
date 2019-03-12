@@ -29,13 +29,13 @@ import json
 from matplotlib import pyplot as plt
 
 from FarseerNMR import logger
-from FarseerNMR.core import validate
 from FarseerNMR.plot.base import (
     plottingbase,
     experimentplotbase,
     barplotbase,
     plotvalidators,
     )
+from FarseerNMR.plot.examples import barplotxmpls
 
 log = logger.get_log(__name__)
 
@@ -609,4 +609,3 @@ if __name__ == "__main__":
     
     for example in barplotxmpls.list_of_examples:
         example(plot, name)
-

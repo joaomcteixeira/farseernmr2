@@ -9,13 +9,14 @@ from FarseerNMR import logger
 
 log = logger.get_log(__name__)
 
+
 def threshold_std_of_population(
         values,
         *,
         std=5,
         population=0.1,
         ):
-    """
+    r"""
     Calculates the significancy threshold according to a standard
     deviation of a given population.
     

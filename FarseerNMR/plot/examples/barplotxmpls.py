@@ -77,7 +77,7 @@ def make_data(shape):
     letter_code = None
     peak_status = None
     tag_position = np.empty(shape, dtype=str)
-    #tag_position[:, 1] = "*"
+    # tag_position[:, 1] = "*"
     theo_pre = np.full(shape, 0.25)
         
     return (
@@ -91,16 +91,17 @@ def make_data(shape):
         theo_pre,
         )
 
+
 def example1(plot, name):
     
     shape = (7, 8)
     name = f"{name}_1.{ext}"
     
     values, labels, suptitles, letter_code, \
-    peak_status, details, tag_position, theo_pre = make_data(shape)
+        peak_status, details, tag_position, theo_pre = make_data(shape)
     
     for i in range(shape[0]):
-        values[i,i] = 0.05 * i
+        values[i, i] = 0.05 * i
         details[i, i] = "yell"
     
     plot(
@@ -112,7 +113,8 @@ def example1(plot, name):
         **c
         )
     
-    return 
+    return
+
 
 def example2(plot, name):
     
@@ -120,10 +122,10 @@ def example2(plot, name):
     name = f"{name}_2.{ext}"
     
     values, labels, suptitles, letter_code, \
-    peak_status, details, tag_position, theo_pre = make_data(shape)
+        peak_status, details, tag_position, theo_pre = make_data(shape)
     
     values[1, 45:56] = 0.0
-    tag_position[:, 49] = "*" # residue 50!!
+    tag_position[:, 49] = "*"  # residue 50!!
     
     plot(
         values,
@@ -138,16 +140,17 @@ def example2(plot, name):
     
     return
 
+
 def example3(plot, name):
     
     shape = (3, 200)
     name = f"{name}_3.{ext}"
     
     values, labels, suptitles, letter_code, \
-    peak_status, details, tag_position, theo_pre = make_data(shape)
+        peak_status, details, tag_position, theo_pre = make_data(shape)
     
     values[1, 100:200] = 0.0
-    tag_position[:, 149] = "*" # residue 150 !!
+    tag_position[:, 149] = "*"  # residue 150 !!
     
     plot(
         values,
@@ -162,13 +165,14 @@ def example3(plot, name):
     
     return
 
+
 def example4(plot, name):
     
     shape = (3, 1000)
     name = f"{name}_4.{ext}"
     
     values, labels, suptitles, letter_code, \
-    peak_status, details, tag_position, theo_pre = make_data(shape)
+        peak_status, details, tag_position, theo_pre = make_data(shape)
     
     details[0, 100:200] = "yell"
     details[1, 200:300] = "yell"
@@ -185,13 +189,14 @@ def example4(plot, name):
     
     return
 
+
 def example5(plot, name):
     
     shape = (3, 357)
     name = f"{name}_5.{ext}"
     
     values, labels, suptitles, letter_code, \
-    peak_status, details, tag_position, theo_pre = make_data(shape)
+        peak_status, details, tag_position, theo_pre = make_data(shape)
     
     details[0, 0:50] = "yell"
     details[1, 99:150] = "yell"
@@ -208,6 +213,7 @@ def example5(plot, name):
     
     return
 
+
 def run():
     
     for module, name in zip(list_of_templates, list_of_names):
@@ -218,6 +224,7 @@ def run():
             
     return
 
+
 list_of_examples = [
     example1,
     example2,
@@ -225,6 +232,7 @@ list_of_examples = [
     example4,
     example5,
     ]
+
 
 if __name__ == "__main__":
     

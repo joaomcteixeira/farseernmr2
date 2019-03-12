@@ -42,11 +42,12 @@ import logging.config
 log_config = {
     "version": 1,
     "disable_existing_loggers": False,
+    
     "formatters": {
         "debug_format": {
             "format": (
                 "%(levelname)s - "
-                "%(filename)s:%(name)s:%(funcName)s:%(lineno)d - "
+                "%(name)s:%(funcName)s:%(lineno)d - "
                 "%(message)s"
                 )
             },
@@ -99,6 +100,6 @@ def get_log(name):
     """
     Returns logger according to :const:`~log_config`.
     """
-    
+    # logging.addLevelName(15, "DEBUG")
     logging.config.dictConfig(log_config)
     return logging.getLogger(name)
