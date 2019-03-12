@@ -14,13 +14,17 @@ from FarseerNMR.plot.examples import (
 dir_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 
 
-def test_barplot():
+def test_barplots():
     
-    nametest = os.path.join(dir_path, "__test_barplotcompacted")
+    list_of_nametest = [
+        os.path.join(dir_path, "__test_barplotcompacted"),
+        os.path.join(dir_path, "__test_barplotextended"),
+        ]
     
-    for module, name in zip(
+    for module, name, nametest in zip(
             barplotxmpls.list_of_templates,
             barplotxmpls.list_of_names,
+            list_of_nametest,
             ):
         
         for i, example in enumerate(barplotxmpls.list_of_examples, start=1):
