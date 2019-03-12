@@ -37,6 +37,7 @@ from FarseerNMR.plot.base import (
     barplotbase,
     plotvalidators,
     )
+from FarseerNMR.plot.examples import barplotxmpls
 
 log = logger.get_log(__name__)
 
@@ -274,50 +275,6 @@ def plot(
         tag_position,
         theo_pre,
         )
-    
-    # suptitles = suptitles or [str(i) for i in range(values.shape[0])]
-    
-    # # validates type of positional arguments
-    # args2validate = [
-        # ("values", values, np.ndarray),
-        # ("label", labels, np.ndarray),
-        # ]
-    
-    # [validate.validate_types(t) for t in args2validate]
-    
-    # # validates type of optional named arguments
-    # args2validate = [
-        # ("header", header, str),
-        # ("suptitles", suptitles, list),
-        # ("letter_code", letter_code, np.ndarray),
-        # ("peak_status", peak_status, np.ndarray),
-        # ("details", details, np.ndarray),
-        # ("tag_position", tag_position, np.ndarray),
-        # ("theo_pre", theo_pre, np.ndarray),
-        # ]
-    
-    # [validate.validate_types(t) for t in args2validate if t[1] is not None]
-    
-    # # validates shapes and lenghts of arguments
-    # args2validate = [
-        # ("peak_status", peak_status),
-        # ("details", details),
-        # ("tag_position", tag_position),
-        # ("theo_pre", theo_pre),
-        # ]
-    
-    # [plotvalidators.validate_shapes(values, t)
-        # for t in args2validate if t[1] is not None]
-    
-    # args2validate = [
-        # ("labels", labels),
-        # ("letter_code", letter_code),
-        # ]
-    
-    # [plotvalidators.validate_len(values[0, :], t)
-        # for t in args2validate if t[1] is not None]
-    
-    # plotvalidators.validate_len(values[:, 0], ("suptitles", suptitles))
     
     # assigned and validates config
     config = {**_default_config, **kwargs}
@@ -633,122 +590,7 @@ def _subplot(
 
 if __name__ == "__main__":
     
-    c = {
-        "mark_user_details_flag": True,
-        "color_user_details_flag": True,
-        "user_marks_dict": {
-            "yell": "y"
-            },
-        "user_bar_colors_dict": {
-            "yell": "yellow"
-            },
-        "figure_dpi": 300,
-        }
+    name = "barplotcompacted"
     
-    def make_data(shape):
-        
-        values = np.full(shape, 0.2)
-        labels = np.arange(1, shape[1] + 1).astype(str)
-        details = np.full(shape, "none")
-        suptitles = [c for c in "ABCDEFGHIJKLMNOPQRSTUVXYZ"[:shape[0]]]
-        letter_code = None
-        peak_status = None
-        tag_position = np.empty(shape, dtype=str)
-        #tag_position[:, 1] = "*"
-        theo_pre = np.full(shape, 0.25)
-        
-        return (
-            values,
-            labels,
-            suptitles,
-            letter_code,
-            peak_status,
-            details,
-            tag_position,
-            theo_pre,
-            )
-    
-    # ####################################################################### 1
-    #    Short data set
-    
-    shape = (7, 8)
-    name = "compacted_1.png"
-    
-    values, labels, suptitles, letter_code, \
-    peak_status, details, tag_position, theo_pre = make_data(shape)
-    
-    for i in range(shape[0]):
-        values[i,i] = 0.05 * i
-        details[i, i] = "yell"
-    
-    plot(
-        values,
-        labels,
-        details=details,
-        header=name,
-        figure_path=name,
-        **c)
-    
-    # ####################################################################### 2
-    # 100 Dataset
-    
-    shape = (3, 100)
-    name = "compacted_2.png"
-    
-    values, labels, suptitles, letter_code, \
-    peak_status, details, tag_position, theo_pre = make_data(shape)
-    
-    plot(
-        values,
-        labels,
-        details=details,
-        header=name,
-        figure_path=name,
-        **c)
-    
-    # ####################################################################### 2
-    # 200 Dataset
-    
-    shape = (3, 200)
-    name = "compacted_3.png"
-    
-    values, labels, suptitles, letter_code, \
-    peak_status, details, tag_position, theo_pre = make_data(shape)
-    
-    values[1, 100:200] = 0.0
-    tag_position[1, 150] = "*"
-    
-    plot(
-        values,
-        labels,
-        details=details,
-        tag_position=tag_position,
-        theo_pre=theo_pre,
-        header=name,
-        figure_path=name,
-        plot_theoretical_pre=True,
-        **c)
-    
-    # ####################################################################### 4
-    # 1000 Dataset
-    
-    shape = (3, 1000)
-    name = "compacted_4.png"
-    
-    values, labels, suptitles, letter_code, \
-    peak_status, details, tag_position, theo_pre = make_data(shape)
-    
-    details[0, 100:200] = "yell"
-    details[1, 200:300] = "yell"
-    details[2, 600:700] = "yell"
-    
-    print(suptitles)
-    
-    plot(
-        values,
-        labels,
-        suptitles=suptitles,
-        details=details,
-        header=name,
-        figure_path=name,
-        **c)
+    for example in barplotxmpls.list_of_examples:
+        example(plot, name)
