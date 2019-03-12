@@ -71,6 +71,51 @@ def validate_barplot_params(
     return
 
 
+def validate_subplot_per_residue(
+        values,
+        header,
+        suptitles,
+        peak_status,
+        fitting,
+        fitting_info,
+        ):
+    
+    # validates type of positional arguments
+    args2validate = [
+        ("values", values, np.ndarray),
+        ]
+    
+    [validate.validate_types(t) for t in args2validate]
+    
+    # validates type of named optional arguments
+    args2validate = [
+        ("header", header, str),
+        ("suptitles", suptitles, list),
+        ("peak_status", peak_status, np.ndarray),
+        ("fitting", fitting, np.ndarray),
+        ("fitting_info", fitting_info, np.ndarray),
+        ]
+    
+    [validate.validate_types(t)
+        for t in args2validate if t[1] is not None]
+    
+    # validates shapes and lenghts
+    args2validate = [
+        ("peak_status", peak_status),
+        ]
+    
+    [validate_shapes(values, t) for t in args2validate if t[1] is not None]
+    
+    args2validate = [
+        ("suptitles", suptitles),
+        ("fitting", fitting),
+        ("fitting_info", fitting_info)
+        ]
+    
+    [validate_len(values[:, 0], t) for t in args2validate if t[1] is not None]
+    
+    return
+
 def validate_config(ref, target, name="some config"):
     """
     Validate config dictionary for DeltaPRE Heat Map Plot template.
