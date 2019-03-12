@@ -5,6 +5,10 @@ This module contains functions that make calculations :-)
 import numpy as np
 from math import ceil
 
+from FarseerNMR import logger
+
+log = logger.get_log(__name__)
+
 def threshold_std_of_population(
         values,
         *,
@@ -53,10 +57,19 @@ def threshold_std_of_population(
     
     sorted_values = np.copy(np.sort(np.absolute(values)))
     parsed_values = sorted_values[np.logical_not(np.isnan(sorted_values))]
-    firstpop = parsed_values[0: ceil(0.1 * len(parsed_values))]
-    threshold = np.mean(firstpop) + std * np.std(firstpop)
     
-    print(threshold)
+    firstpop = parsed_values[0: ceil(0.1 * len(parsed_values))]
+    log.debug(f"<firstpop>: {firstpop}")
+    
+    mean = np.mean(firstpop)
+    log.debug(f"mean: {mean}")
+    
+    stdev = np.std(firstpop)
+    log.debug(f"stdev {stdev}")
+    
+    threshold = mean + std * stdev
+    
+    log.debug(f"threshold: {threshold}")
     
     assert isinstance(threshold, float), "threshold MUST be float"
     return threshold
